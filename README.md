@@ -43,6 +43,7 @@ breadth-oriented
 # Step 3:
 ## a. Draw a logical diagram
 - API gateway 
+![](system-design.png)
 
 ## b. Draw and explain data/logic flow between them
 
@@ -140,3 +141,7 @@ API?
             - Replication will help                    
     - Metadata read is negligible
     
+## b. Architecture layout
+![](content-architecture.png)
+![](content-architecture-2.png)
+![](content-architecture-3.png)
