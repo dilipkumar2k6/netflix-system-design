@@ -175,6 +175,7 @@ POST /videos/<videoId>/comments/<commentId>?apiKey=string&authToken=string
 ```
 {
     commentId: int 4 bytes
+    parentCommnentId: int 4 bytes
     videoId: int 4 bytes
     userId: int 4 bytes
     comment: string 240 bytes
