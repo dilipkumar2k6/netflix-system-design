@@ -269,3 +269,26 @@ This will update video metadata table.
 - Read API have to  gives chunk id so that content can be read
 - If movie is so hot then?
 - Replication will help    
+
+# Optimize thumbnail storage
+- There will be a lot more thumbnails than videos. 
+- If we assume that every video will have five thumbnails, we need to have a very efficient storage system that can serve a huge read traffic. 
+- There will be two consideration before deciding which storage system should be used for thumbnails:
+    - Thumbnails are small files with, say, a maximum 5KB each.
+    - Read traffic for thumbnails will be huge compared to videos. 
+        - Users will be watching one video at a time, but they might be looking at a page that has 20 thumbnails of other videos.
+## What is problem with storage?
+- Given that we have a huge number of files, we have to perform a lot of seeks to different locations on the disk to read these files.
+- This is quite inefficient and will result in higher latencies.
+## Use BigTable or Facebook F4 (needle in haystack)
+- It combines multiple files into one block to store on the disk and is very efficient in reading a small amount of data.
+## Use cache to handle hot thumbnail
+- Keeping hot thumbnail in the cache will also help in improving the latencies and, given that thumbnail files are small in size, we can easily cache a large number of such files in memory.
+
+# Video upload
+- Use dropbox design to chunks files 
+
+# Video dedupliation
+- As soon as any user starts uploading a video, our service can run video matching algorithms (e.g., Block Matching, Phase Correlation, etc.) to find duplications. 
+- If we already have a copy of the video being uploaded, we can either stop the upload and use the existing copy or continue the upload and use the newly uploaded video if it is of higher quality.
+-  If the newly uploaded video is a subpart of an existing video or, vice versa, we can intelligently divide the video into smaller chunks so that we only upload the parts that are missing.
